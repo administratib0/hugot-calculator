@@ -123,34 +123,22 @@
 
         // Array of sweet and funny Filipino phrases
         const answers = [
-            "I miss you",
-            "Kape tayo?",
-            "Ingat ka lagi",
-            "Ikaw lang sapat na",
-            "Sana all",
-            "Mahal kita",
-            "Wag na malungkot",
-            "You're my sunshine",
-            "Libre mo 'ko",
-            "Pogi mo naman",
-            "Ganda mo naman",
-            "Crush kita",
-            "Pahug naman",
-            "Kamusta ka?",
-            "Let's go on a date"
+            "I miss you", "Kape tayo?", "Ingat ka lagi", "Ikaw lang sapat na",
+            "Sana all", "Mahal kita", "Wag na malungkot", "You're my sunshine",
+            "Libre mo 'ko", "Pogi mo naman", "Ganda mo naman", "Crush kita",
+            "Pahug naman", "Kamusta ka?", "Let's go on a date"
         ];
         
         let lastAnswerIndex = -1;
 
         // Function to update the display
         function updateDisplay() {
-            // Adjust font size based on content length to prevent overflow
             if (currentInput.length > 15) {
-                display.style.fontSize = '1.75rem'; // 28px for very long text
+                display.style.fontSize = '1.75rem';
             } else if (currentInput.length > 8) {
-                display.style.fontSize = '2.25rem'; // 36px for medium text
+                display.style.fontSize = '2.25rem';
             } else {
-                display.style.fontSize = '3rem'; // 48px for numbers
+                display.style.fontSize = '3rem';
             }
             display.innerText = currentInput;
         }
@@ -176,33 +164,9 @@
             updateDisplay();
         }
 
-        // Function to show a random answer
-        function showAnswer() {
-            if (currentInput === '0' || isAnswerDisplayed) return;
-
-            // Check for special combinations first
-            if (currentInput === '22+22') {
-                currentInput = 'deserve mo mag kape';
-            } else if (currentInput === '69+69') {
-                currentInput = 'Uy! May 5% discount ka sa coffee!';
-            } else if (currentInput === '699+966') {
-                currentInput = 'Free Americano';
-            } else if (currentInput === '96*69') {
-                currentInput = 'Ey! 5% discount sa pet grooming!';
-            } else {
-                // If it's not a special combo, get a random answer
-                let randomIndex;
-                do {
-                    randomIndex = Math.floor(Math.random() * answers.length);
-                } while (answers.length > 1 && randomIndex === lastAnswerIndex);
-                
-                lastAnswerIndex = randomIndex;
-                currentInput = answers[randomIndex];
-            }
-            
-            isAnswerDisplayed = true;
-            updateDisplay();
-        }
+        // *** OBFUSCATED FUNCTION ***
+        // This function is scrambled to make it hard to read the secret codes.
+        function showAnswer(){const _0x4a1b=['deserve\x20mo\x20mag\x20kape','69+69','Uy!\x20May\x205%\x20discount\x20ka\x20sa\x20coffee!','699+966','Free\x20Americano','96*69','Ey!\x205%\x20discount\x20sa\x20pet\x20grooming!','random'];function _0x1d7e(_0x2d9fde,_0x45a242){_0x2d9fde=_0x2d9fde-0x174;let _0x4a1b2e=_0x4a1b[_0x2d9fde];return _0x4a1b2e;}const _0x58a599=_0x1d7e;if(currentInput==='0'||isAnswerDisplayed)return;if(currentInput==='22+22'){currentInput=_0x58a599(0x174);}else if(currentInput===_0x58a599(0x175)){currentInput=_0x58a599(0x176);}else if(currentInput===_0x58a599(0x177)){currentInput=_0x58a599(0x178);}else if(currentInput===_0x58a599(0x179)){currentInput=_0x58a599(0x17a);}else{let _0x58b01c;do{_0x58b01c=Math.floor(Math.random()*answers.length);}while(answers.length>0x1&&_0x58b01c===lastAnswerIndex);lastAnswerIndex=_0x58b01c;currentInput=answers[lastAnswerIndex];}isAnswerDisplayed=!![];updateDisplay();}
 
         // Initialize display
         updateDisplay();
