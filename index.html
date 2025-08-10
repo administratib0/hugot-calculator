@@ -11,151 +11,170 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background: #6D5D4B; /* Coffee-brown background */
+            background: #000000; /* iPhone dark background */
         }
         .calculator-container {
-            background: #F4EAD5; /* Creamy latte color */
-            border-radius: 2rem;
-            padding: 1.5rem;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
-            border: 4px solid #4E3629; /* Dark chocolate border */
+            background: #000000;
+            padding: 1rem;
+            max-width: 375px;
+            margin: 0 auto;
         }
         .title {
             font-family: 'Pacifico', cursive;
-            color: #4E3629;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.7);
+            color: #FF9500; /* iPhone orange */
+            text-shadow: 0 0 10px rgba(255, 149, 0, 0.3);
+            text-align: center;
+            margin-bottom: 2rem;
         }
         .display {
-            font-family: 'Orbitron', sans-serif; /* Digital calculator font */
-            background: #B2C8BA; /* A muted green, like a matcha latte */
-            color: #2F3E46;
-            border: 2px solid #4E3629;
-            box-shadow: inset 3px 3px 6px #8a9e90, inset -3px -3px 6px #dafff4;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
-            word-wrap: break-word; /* Ensure long words break */
+            font-family: 'Inter', sans-serif;
+            background: #000000;
+            color: #FFFFFF;
+            text-align: right;
+            padding: 2rem 1.5rem 1rem 1.5rem;
+            margin-bottom: 1rem;
+            min-height: 120px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            font-size: 4rem;
+            font-weight: 300;
+            line-height: 1;
+            word-wrap: break-word;
             transition: all 0.3s ease;
         }
         .display.special-answer {
             animation: specialPulse 0.6s ease-in-out;
             background: linear-gradient(135deg, #FFE5B4, #FFD700);
             color: #8B4513;
+            border-radius: 1rem;
         }
         @keyframes specialPulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.02); }
         }
         .btn {
-            border-radius: 9999px; /* Circular buttons */
-            font-weight: 500;
-            transition: all 0.2s ease-in-out;
-            border: 1px solid rgba(0,0,0,0.1);
-            min-height: 3.5rem;
+            border-radius: 50%;
+            font-weight: 400;
+            transition: all 0.1s ease-in-out;
+            border: none;
+            min-height: 4rem;
+            min-width: 4rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.75rem;
+            margin: 0.25rem;
         }
         .btn:active {
             transform: scale(0.95);
-            box-shadow: inset 3px 3px 7px rgba(0,0,0,0.25);
+            filter: brightness(1.2);
         }
         .btn:focus {
-            outline: 2px solid #4E3629;
-            outline-offset: 2px;
+            outline: none;
         }
         .btn-number {
-            background-color: #fff;
-            color: #4E3629;
+            background-color: #333333; /* Dark gray */
+            color: #FFFFFF;
         }
         .btn-number:hover {
-            background-color: #f7f3e9;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: #666666;
         }
         .btn-operator {
-            background-color: #E57F84; /* A soft reddish color, like a strawberry treat */
-            color: white;
+            background-color: #FF9500; /* iPhone orange */
+            color: #FFFFFF;
         }
         .btn-operator:hover {
-            background-color: #d8686e;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: #FFB340;
+        }
+        .btn-operator.active {
+            background-color: #FFFFFF;
+            color: #FF9500;
         }
         .btn-equals {
-            background-color: #A0CFA2; /* A friendly green */
-            color: white;
+            background-color: #FF9500; /* iPhone orange */
+            color: #FFFFFF;
         }
         .btn-equals:hover {
-            background-color: #8dbd90;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: #FFB340;
         }
         .btn-clear {
-            background-color: #F3A712; /* A warm orange */
-            color: white;
+            background-color: #A5A5A5; /* Light gray */
+            color: #000000;
         }
         .btn-clear:hover {
-            background-color: #df980b;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: #D4D4D4;
         }
         .btn-backspace {
-            background-color: #FF6B6B; /* A soft red */
-            color: white;
+            background-color: #A5A5A5; /* Light gray */
+            color: #000000;
         }
         .btn-backspace:hover {
-            background-color: #ff5252;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: #D4D4D4;
         }
         .coffee-icon {
             display: inline-block;
             margin-right: 0.5rem;
             font-size: 1.5rem;
         }
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            max-width: 375px;
+            margin: 0 auto;
+        }
+        .zero-button {
+            grid-column: span 2;
+            border-radius: 2rem;
+            text-align: left;
+            padding-left: 2rem;
+            justify-content: flex-start;
+        }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
 
-    <div class="calculator-container w-full max-w-xs md:max-w-sm mx-auto">
+    <div class="calculator-container w-full">
         <!-- Title -->
-        <h1 class="title text-3xl text-center mb-4">
-            <span class="coffee-icon">☕🐾</span>Barista&Paws Calculator
+        <h1 class="title text-2xl">
+            <span class="coffee-icon">☕🐾</span>Barista&Paws
         </h1>
         
         <!-- Display -->
-        <div id="display" class="display w-full h-24 rounded-lg mb-6 flex items-center justify-end text-5xl p-5 overflow-hidden text-right" role="textbox" aria-label="Calculator display">
+        <div id="display" class="display w-full rounded-lg overflow-hidden" role="textbox" aria-label="Calculator display">
             0
         </div>
 
         <!-- Buttons Grid -->
-        <div class="grid grid-cols-4 gap-3">
+        <div class="button-grid">
             <!-- Row 1 -->
-            <button class="btn btn-clear text-2xl p-4" onclick="clearDisplay()" aria-label="Clear">C</button>
-            <button class="btn btn-backspace text-2xl p-4" onclick="backspace()" aria-label="Backspace">⌫</button>
-            <button class="btn btn-operator text-2xl p-4" onclick="appendInput('/')" aria-label="Divide">÷</button>
-            <button class="btn btn-operator text-2xl p-4" onclick="appendInput('*')" aria-label="Multiply">×</button>
+            <button class="btn btn-clear" onclick="clearDisplay()" aria-label="Clear">AC</button>
+            <button class="btn btn-backspace" onclick="backspace()" aria-label="Backspace">⌫</button>
+            <button class="btn btn-operator" onclick="appendInput('/')" aria-label="Divide">÷</button>
+            <button class="btn btn-operator" onclick="appendInput('*')" aria-label="Multiply">×</button>
 
             <!-- Row 2 -->
-            <button class="btn btn-operator text-2xl p-4" onclick="appendInput('-')" aria-label="Subtract">−</button>
-            <button class="btn btn-number text-2xl p-4" onclick="appendInput('7')" aria-label="Seven">7</button>
-            <button class="btn btn-number text-2xl p-4" onclick="appendInput('8')" aria-label="Eight">8</button>
-            <button class="btn btn-number text-2xl p-4" onclick="appendInput('9')" aria-label="Nine">9</button>
+            <button class="btn btn-number" onclick="appendInput('7')" aria-label="Seven">7</button>
+            <button class="btn btn-number" onclick="appendInput('8')" aria-label="Eight">8</button>
+            <button class="btn btn-number" onclick="appendInput('9')" aria-label="Nine">9</button>
+            <button class="btn btn-operator" onclick="appendInput('-')" aria-label="Subtract">−</button>
 
             <!-- Row 3 -->
-            <button class="btn btn-operator text-2xl p-4 row-span-2" onclick="appendInput('+')" aria-label="Add">+</button>
-            <button class="btn btn-number text-2xl p-4" onclick="appendInput('4')" aria-label="Four">4</button>
-            <button class="btn btn-number text-2xl p-4" onclick="appendInput('5')" aria-label="Five">5</button>
-            <button class="btn btn-number text-2xl p-4" onclick="appendInput('6')" aria-label="Six">6</button>
+            <button class="btn btn-number" onclick="appendInput('4')" aria-label="Four">4</button>
+            <button class="btn btn-number" onclick="appendInput('5')" aria-label="Five">5</button>
+            <button class="btn btn-number" onclick="appendInput('6')" aria-label="Six">6</button>
+            <button class="btn btn-operator" onclick="appendInput('+')" aria-label="Add">+</button>
 
             <!-- Row 4 -->
-            <button class="btn btn-number text-2xl p-4" onclick="appendInput('1')" aria-label="One">1</button>
-            <button class="btn btn-number text-2xl p-4" onclick="appendInput('2')" aria-label="Two">2</button>
-            <button class="btn btn-number text-2xl p-4" onclick="appendInput('3')" aria-label="Three">3</button>
-            <button class="btn btn-equals text-2xl p-4 row-span-2" onclick="showAnswer()" aria-label="Equals">=</button>
+            <button class="btn btn-number" onclick="appendInput('1')" aria-label="One">1</button>
+            <button class="btn btn-number" onclick="appendInput('2')" aria-label="Two">2</button>
+            <button class="btn btn-number" onclick="appendInput('3')" aria-label="Three">3</button>
+            <button class="btn btn-equals" onclick="showAnswer()" aria-label="Equals">=</button>
 
             <!-- Row 5 -->
-            <button class="btn btn-number text-2xl p-4 col-span-2" onclick="appendInput('0')" aria-label="Zero">0</button>
-            <button class="btn btn-number text-2xl p-4" onclick="appendInput('.')" aria-label="Decimal point">.</button>
+            <button class="btn btn-number zero-button" onclick="appendInput('0')" aria-label="Zero">0</button>
+            <button class="btn btn-number" onclick="appendInput('.')" aria-label="Decimal point">.</button>
         </div>
     </div>
 
@@ -180,7 +199,54 @@
             "Crush kita",
             "Pahug naman",
             "Kamusta ka?",
-            "Let's go on a date"
+            "Let's go on a date",
+            "Coffee date?",
+            "Pogi ka talaga",
+            "Ganda mo talaga",
+            "Salamat sa lahat",
+            "Ikaw ang pinaka",
+            "Sweet mo naman",
+            "Ang cute mo",
+            "Ang galing mo",
+            "Proud ako sayo",
+            "Kaya mo yan",
+            "Laban lang",
+            "Tara kape",
+            "Tara food trip",
+            "Tara gala",
+            "Tara movie",
+            "Tara shopping",
+            "Ang saya mo kasama",
+            "Miss na kita",
+            "See you soon",
+            "Take care always",
+            "God bless you",
+            "Praying for you",
+            "You're amazing",
+            "You're special",
+            "You're loved",
+            "You're enough",
+            "You're beautiful",
+            "You're handsome",
+            "You're smart",
+            "You're talented",
+            "You're kind",
+            "You're caring",
+            "You're sweet",
+            "You're funny",
+            "You're awesome",
+            "You're perfect",
+            "You're the best",
+            "You're my favorite",
+            "You're my everything",
+            "You're my world",
+            "You're my happiness",
+            "You're my smile",
+            "You're my joy",
+            "You're my love",
+            "You're my heart",
+            "You're my soul",
+            "You're my life"
         ];
         
         let lastAnswerIndex = -1;
@@ -189,11 +255,11 @@
         function updateDisplay() {
             // Adjust font size based on content length to prevent overflow
             if (currentInput.length > 15) {
-                display.style.fontSize = '1.75rem'; // 28px for very long text
+                display.style.fontSize = '2rem'; // 32px for very long text
             } else if (currentInput.length > 8) {
-                display.style.fontSize = '2.25rem'; // 36px for medium text
+                display.style.fontSize = '2.5rem'; // 40px for medium text
             } else {
-                display.style.fontSize = '3rem'; // 48px for numbers
+                display.style.fontSize = '4rem'; // 64px for numbers
             }
             display.innerText = currentInput;
         }
