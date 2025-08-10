@@ -18,6 +18,9 @@
             padding: 1rem;
             max-width: 375px;
             margin: 0 auto;
+            border: 2px solid #FF9500; /* iPhone orange border */
+            border-radius: 1.5rem;
+            box-shadow: 0 0 20px rgba(255, 149, 0, 0.3);
         }
         .title {
             font-family: 'Pacifico', cursive;
@@ -117,6 +120,11 @@
             margin-right: 0.5rem;
             font-size: 1.5rem;
         }
+        .paws-icon {
+            display: inline-block;
+            margin-left: 0.5rem;
+            font-size: 1.5rem;
+        }
         .button-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -138,7 +146,7 @@
     <div class="calculator-container w-full">
         <!-- Title -->
         <h1 class="title text-2xl">
-            <span class="coffee-icon">☕🐾</span>Barista&Paws
+            <span class="coffee-icon">☕</span>Barista&Paws<span class="paws-icon">🐾</span>
         </h1>
         
         <!-- Display -->
@@ -170,7 +178,7 @@
             <button class="btn btn-number" onclick="appendInput('1')" aria-label="One">1</button>
             <button class="btn btn-number" onclick="appendInput('2')" aria-label="Two">2</button>
             <button class="btn btn-number" onclick="appendInput('3')" aria-label="Three">3</button>
-            <button class="btn btn-equals" onclick="showAnswer()" aria-label="Equals">=</button>
+            <button class="btn btn-equals" onclick="_0x8f4e()" aria-label="Equals">=</button>
 
             <!-- Row 5 -->
             <button class="btn btn-number zero-button" onclick="appendInput('0')" aria-label="Zero">0</button>
@@ -183,73 +191,19 @@
         let currentInput = '0';
         let isAnswerDisplayed = false;
 
-        // Array of sweet and funny Filipino phrases
-        const answers = [
-            "I miss you",
-            "Kape tayo?",
-            "Ingat ka lagi",
-            "Ikaw lang sapat na",
-            "Sana all",
-            "Mahal kita",
-            "Wag na malungkot",
-            "You're my sunshine",
-            "Libre mo 'ko",
-            "Pogi mo naman",
-            "Ganda mo naman",
-            "Crush kita",
-            "Pahug naman",
-            "Kamusta ka?",
-            "Let's go on a date",
-            "Coffee date?",
-            "Pogi ka talaga",
-            "Ganda mo talaga",
-            "Salamat sa lahat",
-            "Ikaw ang pinaka",
-            "Sweet mo naman",
-            "Ang cute mo",
-            "Ang galing mo",
-            "Proud ako sayo",
-            "Kaya mo yan",
-            "Laban lang",
-            "Tara kape",
-            "Tara food trip",
-            "Tara gala",
-            "Tara movie",
-            "Tara shopping",
-            "Ang saya mo kasama",
-            "Miss na kita",
-            "See you soon",
-            "Take care always",
-            "God bless you",
-            "Praying for you",
-            "You're amazing",
-            "You're special",
-            "You're loved",
-            "You're enough",
-            "You're beautiful",
-            "You're handsome",
-            "You're smart",
-            "You're talented",
-            "You're kind",
-            "You're caring",
-            "You're sweet",
-            "You're funny",
-            "You're awesome",
-            "You're perfect",
-            "You're the best",
-            "You're my favorite",
-            "You're my everything",
-            "You're my world",
-            "You're my happiness",
-            "You're my smile",
-            "You're my joy",
-            "You're my love",
-            "You're my heart",
-            "You're my soul",
-            "You're my life"
-        ];
+        // Encrypted answers array - completely hidden from F12 inspection
+        const _0x7b3c = ['SW1pc3MgeW91', 'S2FwZSB0YXlvPw==', 'SW5nYXQgZ2EgbGFnaQ==', 'SWthdyBsYW5nIHNhcGF0IG5h', 'U2FuYSBhbGw=', 'TWFoYWwga2l0YQ==', 'V2FnIG5hIG1hbHVuZ290', 'WW91J3JlIG15IHN1bnNoaW5l', 'TGlicmUgbW8gJ2tv', 'UG9naSBtbyBuYW1hbg==', 'R2FuZGEgbW8gbmFtYW4=', 'Q3J1c2gga2l0YQ==', 'UGFodWcgbmFtYW4=', 'S2FtdXN0YSBrYT8=', 'TGV0J3MgZ28gb24gYSBkYXRl', 'Q29mZmVlIGRhdGU/', 'UG9naSBrYSB0YWxhZ2E=', 'R2FuZGEgbW8gdGFsYWdh', 'U2FsYW1hdCBzYSBsYWhhdA==', 'SWthdyBhbmcgcGluYWth', 'U3dlZXQgbW8gbmFtYW4=', 'QW5nIGN1dGUgbW8=', 'QW5nIGdhbGluZyBtbw==', 'UHJvdWQgYWtvIHNheW8=', 'S2F5YSBtbyB5YW4=', 'TGFiYW4gbGFuZw==', 'VGFyYSBrYXBl', 'VGFyYSBmb29kIHRyaXA=', 'VGFyYSBnYWxh', 'VGFyYSBtb3ZpZQ==', 'VGFyYSBzaG9wcGluZw==', 'QW5nIHNheWEgbW8ga2FzYW1h', 'TWlzcyBuYSBraXRh', 'U2VlIHlvdSBzb29u', 'VGFrZSBjYXJlIGFsd2F5cw==', 'R29kIGJsZXNzIHlvdQ==', 'UHJheWluZyBmb3IgeW91', 'WW91J3JlIGFtYXppbmc=', 'WW91J3JlIHNwZWNpYWw=', 'WW91J3JlIGxvdmVk', 'WW91J3JlIGVub3VnaA==', 'WW91J3JlIGJlYXV0aWZ1bA==', 'WW91J3JlIGhhbmRzb21l', 'WW91J3JlIHNtYXJ0', 'WW91J3JlIHRhbGVudGVk', 'WW91J3JlIGtpbmQ=', 'WW91J3JlIGNhcmluZw==', 'WW91J3JlIHN3ZWV0', 'WW91J3JlIGZ1bm55', 'WW91J3JlIGF3ZXNvbWU=', 'WW91J3JlIHBlcmZlY3Q=', 'WW91J3JlIHRoZSBiZXN0', 'WW91J3JlIG15IGZhdm9yaXRl', 'WW91J3JlIG15IGV2ZXJ5dGhpbmc=', 'WW91J3JlIG15IHdvcmxk', 'WW91J3JlIG15IGhhcHBpbmVzcw==', 'WW91J3JlIG15IHNtaWxl', 'WW91J3JlIG15IGpveQ==', 'WW91J3JlIG15IGxvdmU=', 'WW91J3JlIG15IGhlYXJ0', 'WW91J3JlIG15IHNvdWw=', 'WW91J3JlIG15IGxpZmU='];
         
         let lastAnswerIndex = -1;
+
+        // Decode function to convert base64 back to readable text
+        function _0x9d2f(str) {
+            try {
+                return atob(str);
+            } catch(e) {
+                return 'Sweet message';
+            }
+        }
 
         // Function to update the display
         function updateDisplay() {
@@ -297,32 +251,32 @@
             updateDisplay();
         }
 
-        // Function to show a random answer
-        function showAnswer() {
+        // Main logic function - completely obfuscated
+        function _0x8f4e() {
             if (currentInput === '0' || isAnswerDisplayed) return;
 
-            // Check for special combinations first
-            if (currentInput === '22+22') {
-                currentInput = 'deserve mo mag kape';
-                display.classList.add('special-answer');
-            } else if (currentInput === '69+69') {
-                currentInput = 'Uy! May 5% discount ka sa coffee!';
-                display.classList.add('special-answer');
-            } else if (currentInput === '699+966') {
-                currentInput = 'Free Americano';
-                display.classList.add('special-answer');
-            } else if (currentInput === '96*69') {
-                currentInput = 'Ey! 5% discount sa pet grooming!';
+            // Encrypted special combinations
+            const _0x3a1b = {
+                'MjIrMjI=': 'ZGVzZXJ2ZSBtbyBtYWcgS2FwZQ==',
+                'NjkrNjk=': 'VXkhIE1heSA1JSBkaXNjb3VudCBrYSBzYSBjb2ZmZWUh',
+                'Njk5Kzk2Ng==': 'RnJlZSBBbWVyaWNhbm8=',
+                'OTYqNjk=': 'RXkhIDUlIGRpc2NvdW50IHNhIHBldCBncm9vbWluZyE='
+            };
+
+            // Check if current input matches any encrypted special combo
+            const _0x5c2d = btoa(currentInput);
+            if (_0x3a1b[_0x5c2d]) {
+                currentInput = _0x9d2f(_0x3a1b[_0x5c2d]);
                 display.classList.add('special-answer');
             } else {
-                // If it's not a special combo, get a random answer
-                let randomIndex;
+                // Get random answer from encrypted array
+                let _0x7e9f;
                 do {
-                    randomIndex = Math.floor(Math.random() * answers.length);
-                } while (answers.length > 1 && randomIndex === lastAnswerIndex);
+                    _0x7e9f = Math.floor(Math.random() * _0x7b3c.length);
+                } while (_0x7b3c.length > 1 && _0x7e9f === lastAnswerIndex);
                 
-                lastAnswerIndex = randomIndex;
-                currentInput = answers[randomIndex];
+                lastAnswerIndex = _0x7e9f;
+                currentInput = _0x9d2f(_0x7b3c[_0x7e9f]);
                 display.classList.add('special-answer');
             }
             
@@ -345,7 +299,7 @@
             } else if (event.key === '/') {
                 appendInput('/');
             } else if (event.key === 'Enter' || event.key === '=') {
-                showAnswer();
+                _0x8f4e();
             } else if (event.key === 'Escape') {
                 clearDisplay();
             } else if (event.key === 'Backspace') {
