@@ -33,16 +33,34 @@
             box-shadow: inset 3px 3px 6px #8a9e90, inset -3px -3px 6px #dafff4;
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
             word-wrap: break-word; /* Ensure long words break */
+            transition: all 0.3s ease;
+        }
+        .display.special-answer {
+            animation: specialPulse 0.6s ease-in-out;
+            background: linear-gradient(135deg, #FFE5B4, #FFD700);
+            color: #8B4513;
+        }
+        @keyframes specialPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
         }
         .btn {
             border-radius: 9999px; /* Circular buttons */
             font-weight: 500;
             transition: all 0.2s ease-in-out;
             border: 1px solid rgba(0,0,0,0.1);
+            min-height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .btn:active {
             transform: scale(0.95);
             box-shadow: inset 3px 3px 7px rgba(0,0,0,0.25);
+        }
+        .btn:focus {
+            outline: 2px solid #4E3629;
+            outline-offset: 2px;
         }
         .btn-number {
             background-color: #fff;
@@ -50,6 +68,8 @@
         }
         .btn-number:hover {
             background-color: #f7f3e9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .btn-operator {
             background-color: #E57F84; /* A soft reddish color, like a strawberry treat */
@@ -57,6 +77,8 @@
         }
         .btn-operator:hover {
             background-color: #d8686e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .btn-equals {
             background-color: #A0CFA2; /* A friendly green */
@@ -64,6 +86,8 @@
         }
         .btn-equals:hover {
             background-color: #8dbd90;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .btn-clear {
             background-color: #F3A712; /* A warm orange */
@@ -71,6 +95,22 @@
         }
         .btn-clear:hover {
             background-color: #df980b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-backspace {
+            background-color: #FF6B6B; /* A soft red */
+            color: white;
+        }
+        .btn-backspace:hover {
+            background-color: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .coffee-icon {
+            display: inline-block;
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
         }
     </style>
 </head>
@@ -78,41 +118,44 @@
 
     <div class="calculator-container w-full max-w-xs md:max-w-sm mx-auto">
         <!-- Title -->
-        <h1 class="title text-3xl text-center mb-4">Barista&Paws Calculator</h1>
+        <h1 class="title text-3xl text-center mb-4">
+            <span class="coffee-icon">☕🐾</span>Barista&Paws Calculator
+        </h1>
         
         <!-- Display -->
-        <div id="display" class="display w-full h-24 rounded-lg mb-6 flex items-center justify-end text-5xl p-5 overflow-hidden text-right">
+        <div id="display" class="display w-full h-24 rounded-lg mb-6 flex items-center justify-end text-5xl p-5 overflow-hidden text-right" role="textbox" aria-label="Calculator display">
             0
         </div>
 
         <!-- Buttons Grid -->
         <div class="grid grid-cols-4 gap-3">
             <!-- Row 1 -->
-            <button class="btn btn-clear text-2xl p-4" onclick="clearDisplay()">C</button>
-            <button class="btn btn-operator text-2xl p-4" onclick="appendInput('/')">÷</button>
-            <button class="btn btn-operator text-2xl p-4" onclick="appendInput('*')">×</button>
-            <button class="btn btn-operator text-2xl p-4" onclick="appendInput('-')">−</button>
+            <button class="btn btn-clear text-2xl p-4" onclick="clearDisplay()" aria-label="Clear">C</button>
+            <button class="btn btn-backspace text-2xl p-4" onclick="backspace()" aria-label="Backspace">⌫</button>
+            <button class="btn btn-operator text-2xl p-4" onclick="appendInput('/')" aria-label="Divide">÷</button>
+            <button class="btn btn-operator text-2xl p-4" onclick="appendInput('*')" aria-label="Multiply">×</button>
 
             <!-- Row 2 -->
-            <button class="btn btn-number text-2xl p-4" onclick="appendInput('7')">7</button>
-            <button class="btn btn-number text-2xl p-4" onclick="appendInput('8')">8</button>
-            <button class="btn btn-number text-2xl p-4" onclick="appendInput('9')">9</button>
-            <button class="btn btn-operator text-2xl p-4 row-span-2" onclick="appendInput('+')">+</button>
+            <button class="btn btn-operator text-2xl p-4" onclick="appendInput('-')" aria-label="Subtract">−</button>
+            <button class="btn btn-number text-2xl p-4" onclick="appendInput('7')" aria-label="Seven">7</button>
+            <button class="btn btn-number text-2xl p-4" onclick="appendInput('8')" aria-label="Eight">8</button>
+            <button class="btn btn-number text-2xl p-4" onclick="appendInput('9')" aria-label="Nine">9</button>
 
             <!-- Row 3 -->
-            <button class="btn btn-number text-2xl p-4" onclick="appendInput('4')">4</button>
-            <button class="btn btn-number text-2xl p-4" onclick="appendInput('5')">5</button>
-            <button class="btn btn-number text-2xl p-4" onclick="appendInput('6')">6</button>
+            <button class="btn btn-operator text-2xl p-4 row-span-2" onclick="appendInput('+')" aria-label="Add">+</button>
+            <button class="btn btn-number text-2xl p-4" onclick="appendInput('4')" aria-label="Four">4</button>
+            <button class="btn btn-number text-2xl p-4" onclick="appendInput('5')" aria-label="Five">5</button>
+            <button class="btn btn-number text-2xl p-4" onclick="appendInput('6')" aria-label="Six">6</button>
 
             <!-- Row 4 -->
-            <button class="btn btn-number text-2xl p-4" onclick="appendInput('1')">1</button>
-            <button class="btn btn-number text-2xl p-4" onclick="appendInput('2')">2</button>
-            <button class="btn btn-number text-2xl p-4" onclick="appendInput('3')">3</button>
-            <button class="btn btn-equals text-2xl p-4 row-span-2" onclick="showAnswer()">=</button>
+            <button class="btn btn-number text-2xl p-4" onclick="appendInput('1')" aria-label="One">1</button>
+            <button class="btn btn-number text-2xl p-4" onclick="appendInput('2')" aria-label="Two">2</button>
+            <button class="btn btn-number text-2xl p-4" onclick="appendInput('3')" aria-label="Three">3</button>
+            <button class="btn btn-equals text-2xl p-4 row-span-2" onclick="showAnswer()" aria-label="Equals">=</button>
 
             <!-- Row 5 -->
-            <button class="btn btn-number text-2xl p-4 col-span-2" onclick="appendInput('0')">0</button>
-            <button class="btn btn-number text-2xl p-4" onclick="appendInput('.')">.</button>
+            <button class="btn btn-number text-2xl p-4 col-span-2" onclick="appendInput('0')" aria-label="Zero">0</button>
+            <button class="btn btn-number text-2xl p-4" onclick="appendInput('.')" aria-label="Decimal point">.</button>
         </div>
     </div>
 
@@ -123,24 +166,34 @@
 
         // Array of sweet and funny Filipino phrases
         const answers = [
-            "I miss you", "Kape tayo?", "Ingat ka lagi", "Ikaw lang sapat na",
-            "Sana all", "Mahal kita", "Wag na malungkot", "You're my sunshine",
-            "Libre mo 'ko", "Pogi mo naman", "Ganda mo naman", "Crush kita",
-            "Pahug naman", "Kamusta ka?", "Let's go on a date",
-            "Tara, kape?", "Smile ka na", "You can do it!", "Di ka nya mahal",
-            "Sahod na, magkape ka", "Wag ka muna gumastos", "Mag diet ka!"
+            "I miss you",
+            "Kape tayo?",
+            "Ingat ka lagi",
+            "Ikaw lang sapat na",
+            "Sana all",
+            "Mahal kita",
+            "Wag na malungkot",
+            "You're my sunshine",
+            "Libre mo 'ko",
+            "Pogi mo naman",
+            "Ganda mo naman",
+            "Crush kita",
+            "Pahug naman",
+            "Kamusta ka?",
+            "Let's go on a date"
         ];
         
         let lastAnswerIndex = -1;
 
         // Function to update the display
         function updateDisplay() {
+            // Adjust font size based on content length to prevent overflow
             if (currentInput.length > 15) {
-                display.style.fontSize = '1.75rem';
+                display.style.fontSize = '1.75rem'; // 28px for very long text
             } else if (currentInput.length > 8) {
-                display.style.fontSize = '2.25rem';
+                display.style.fontSize = '2.25rem'; // 36px for medium text
             } else {
-                display.style.fontSize = '3rem';
+                display.style.fontSize = '3rem'; // 48px for numbers
             }
             display.innerText = currentInput;
         }
@@ -163,10 +216,76 @@
         function clearDisplay() {
             currentInput = '0';
             isAnswerDisplayed = false;
+            display.classList.remove('special-answer');
             updateDisplay();
         }
 
-        function showAnswer(){const _0x4a1b=['length','random','floor'];const _0x1d7e=function(_0x2d9fde,_0x45a242){_0x2d9fde=_0x2d9fde-0x174;let _0x4a1b2e=_0x4a1b[_0x2d9fde];return _0x4a1b2e;};if(currentInput==='0'||isAnswerDisplayed)return;const _0x58a599={'MjIrMjI=':atob('ZGVzZXJ2ZSBtbyBtYWcga2FwZQ=='),'Njk2OQ==':atob('VXkhIE1heSA1JSBkaXNjb3VudCBrYSBzYSBjb2ZmZWUh'),'Njk5Kzk2Ng==':atob('RnJlZSBBbWVyaWNhbm8='),'OTYqNjk=':atob('RXkhIDUlIGRpc2NvdW50IHNhIHBldCBncm9vbWluZyE=')};let _0x58b01c=btoa(currentInput);if(_0x58a599[_0x58b01c]){currentInput=_0x58a599[_0x58b01c];}else{let _0x4d7c5b;do{_0x4d7c5b=Math[_0x1d7e(0x176)](Math[_0x1d7e(0x175)]()*answers[_0x1d7e(0x174)]);}while(answers[_0x1d7e(0x174)]>0x1&&_0x4d7c5b===lastAnswerIndex);lastAnswerIndex=_0x4d7c5b;currentInput=answers[lastAnswerIndex];}isAnswerDisplayed=!![];updateDisplay();}
+        // Function to remove last character
+        function backspace() {
+            if (isAnswerDisplayed) return;
+            if (currentInput.length > 1) {
+                currentInput = currentInput.slice(0, -1);
+            } else {
+                currentInput = '0';
+            }
+            updateDisplay();
+        }
+
+        // Function to show a random answer
+        function showAnswer() {
+            if (currentInput === '0' || isAnswerDisplayed) return;
+
+            // Check for special combinations first
+            if (currentInput === '22+22') {
+                currentInput = 'deserve mo mag kape';
+                display.classList.add('special-answer');
+            } else if (currentInput === '69+69') {
+                currentInput = 'Uy! May 5% discount ka sa coffee!';
+                display.classList.add('special-answer');
+            } else if (currentInput === '699+966') {
+                currentInput = 'Free Americano';
+                display.classList.add('special-answer');
+            } else if (currentInput === '96*69') {
+                currentInput = 'Ey! 5% discount sa pet grooming!';
+                display.classList.add('special-answer');
+            } else {
+                // If it's not a special combo, get a random answer
+                let randomIndex;
+                do {
+                    randomIndex = Math.floor(Math.random() * answers.length);
+                } while (answers.length > 1 && randomIndex === lastAnswerIndex);
+                
+                lastAnswerIndex = randomIndex;
+                currentInput = answers[randomIndex];
+                display.classList.add('special-answer');
+            }
+            
+            isAnswerDisplayed = true;
+            updateDisplay();
+        }
+
+        // Keyboard support
+        document.addEventListener('keydown', function(event) {
+            if (event.key >= '0' && event.key <= '9') {
+                appendInput(event.key);
+            } else if (event.key === '.') {
+                appendInput('.');
+            } else if (event.key === '+') {
+                appendInput('+');
+            } else if (event.key === '-') {
+                appendInput('-');
+            } else if (event.key === '*') {
+                appendInput('*');
+            } else if (event.key === '/') {
+                appendInput('/');
+            } else if (event.key === 'Enter' || event.key === '=') {
+                showAnswer();
+            } else if (event.key === 'Escape') {
+                clearDisplay();
+            } else if (event.key === 'Backspace') {
+                backspace();
+            }
+        });
 
         // Initialize display
         updateDisplay();
